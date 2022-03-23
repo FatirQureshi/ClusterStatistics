@@ -17,6 +17,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import interpolate
 import matplotlib.patches as mpatches
+from matplotlib.patches import Ellipse
+import matplotlib.transforms as transforms
 
 df = pd.read_csv('C:\\Users\\RPI\\Documents\\Qureshi Backup\\MATLAB\\MHahn\\FA_input.csv')
 fig, ax = plt.subplots(1, figsize=(7,7))
@@ -42,44 +44,18 @@ for i in df.Group.unique():
     centroid_true=point_details["Factor1"]-point_details["Factor1"].mean()
     centroid_true_y=point_details["Factor2"]-point_details["Factor2"].mean()
     point_details['c'] = (point_details['Factor1']**2)+(point_details['Factor2']**2)**(1/2)
+    
+    cov = np.cov(point_details["Factor1"], point_details["Factor2"])
+    lambda_, v = np.linalg.eig(cov)
+    lambda_ = np.sqrt(lambda_)
+    
+    ell = Ellipse(xy=(np.mean(point_details["Factor1"]), np.mean(point_details["Factor2"])),alpha = .4, width=lambda_[np.argmax(abs(lambda_))]*1.5*2, height=lambda_[1-np.argmax(abs(lambda_))]*1.5*2, angle=np.rad2deg(np.arctan2(*v[:,np.argmax(abs(lambda_))][::-1])))
+    ell.set_facecolor(hmmm.Color.iloc[1])
+    ax.add_patch(ell)
 
 
     plt.scatter(point_details["Factor1"].mean(), point_details["Factor2"].mean(), c=hmmm.Color.iloc[1],edgecolors='black',marker="s",alpha=1,s=105)
 
-    hull = ConvexHull(points)
-    x_hull = np.append(points[hull.vertices,0],
-                       points[hull.vertices,0][0])
-    y_hull = np.append(points[hull.vertices,1],
-                       points[hull.vertices,1][0])
-    
-    # interpolate
-    dist = np.sqrt((x_hull[:-1] - x_hull[1:])**2 + (y_hull[:-1] - y_hull[1:])**2)
-    dist_along = np.concatenate(([0], dist.cumsum()))
-    spline, u = interpolate.splprep([x_hull, y_hull], 
-                                    u=dist_along, s=0)
-    interp_d = np.linspace(dist_along[0], dist_along[-1], 50)
-    interp_x, interp_y = interpolate.splev(interp_d, spline)
-    
-    xlist=x_hull
-    xlist = sorted(set(xlist))
-    x_max_limit=xlist[-1]+abs((xlist[-1]-xlist[-3])/2)/2
-    x_min_limit=xlist[0]-abs((xlist[0]-xlist[2])/2)/2
-    
-    test=0
-    ylist=y_hull
-    ylist = sorted(set(ylist))
-    y_max_limit=xlist[-1]+abs((ylist[-1]-ylist[-2]))*2
-    y_min_limit=xlist[0]-abs((ylist[0]-ylist[1]))*2
-    iter_removed=0;
-    new_pseudo_x=[]
-    new_pseudo_y=[]
-    new_x=np.empty((0,3), int)
-    new_y=np.empty((0,3), int)
-    for j in range(0, len(interp_x)-1):
-        if interp_x[j]>=x_min_limit and interp_x[j]<=x_max_limit:
-            test=test+1
-            new_pseudo_x.append(interp_x[j])
-            new_pseudo_y.append(interp_y[j])
         
             
             
@@ -96,7 +72,7 @@ for i in df.Group.unique():
    # y1 = scipy.interpolate.BSpline(t, y_hull, nt)
     
     
-    plt.fill(new_pseudo_x, new_pseudo_y, '--', c=hmmm.Color.iloc[1], alpha=0.2)
+    #plt.fill(new_pseudo_x, new_pseudo_y, '--', c=hmmm.Color.iloc[1], alpha=0.2)
     
     
 ax.legend()    
