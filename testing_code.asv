@@ -1,0 +1,47 @@
+elements_dataset=size(test);
+
+centroid_Table=[];
+Spatial_Table=[];
+uniqueList=unique(test(:,1));
+for i=1:length(table2array(uniqueList))
+    try
+groupValues=test(test.Group==table2array(uniqueList(i,1)), :);
+    catch
+        warning('')
+postScoreMes=table2array(groupValues(:,2:elements_dataset(2)));
+centroidFA=mean(postScoreMes);
+centroid_Table=[centroid_Table;centroidFA];
+adjusted_values=postScoreMes-mean(postScoreMes);
+all_adjusted=[];
+for q=1:length(postScoreMes)
+all_adjusted=[all_adjusted,((adjusted_values(q,2)^2)+(adjusted_values(q,1)^2))^(1/2)];
+end
+Spatial_Table=[Spatial_Table;mean(all_adjusted)]
+end
+mahal_Table=zeros(length(table2array(uniqueList)));
+t_squared_table_Table=zeros(length(table2array(uniqueList)));
+lemon=0;
+for i=1:length(table2array(uniqueList))
+groupValues=test(test.Group==table2array(uniqueList(i,1)), :);
+postScoreMes=table2array(groupValues(:,2:elements_dataset(2)));
+for j=1:length(table2array(uniqueList))
+    groupValues_vs=test(test.Group==table2array(uniqueList(j,1)), :);
+postScoreMes_vs=table2array(groupValues_vs(:,2:elements_dataset(2)));
+
+    d2 = mahal(centroid_Table(j,:),postScoreMes);
+    mahal_Table(i,j)=d2;
+    groupX=groupValues(:,2:3);
+    groupY=groupValues_vs(:,2:3);
+   
+    delete groupX.xlsx
+    delete groupY.xlsx
+    writetable(groupX,'groupX.xlsx')
+    writetable(groupY,'groupY.xlsx')
+    RunRcode('T_Squared.R','C:\Program Files\R\R-4.1.1\bin')
+    if isnan(table2array(readtable('p_value_statR.csv')))
+    t_squared_table_Table(i,j)=99;
+    else
+        t_squared_table_Table(i,j)=table2array(readtable('p_value_statR.csv'));
+    end
+end
+end

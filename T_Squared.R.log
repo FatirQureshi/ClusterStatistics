@@ -1,0 +1,41 @@
+
+R version 4.1.1 (2021-08-10) -- "Kick Things"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library("Hotelling")
+Loading required package: corpcor
+> library("readxl")
+> group_x <- read_excel("C:/Users/RPI/Documents/Qureshi Backup/MATLAB/MHahn/groupX.xlsx")
+> group_y <- read_excel("C:/Users/RPI/Documents/Qureshi Backup/MATLAB/MHahn/groupY.xlsx")
+> 
+> sta=hotelling.test(group_x, group_y, shrinkage = FALSE, var.equal = FALSE)
+> 
+> print(sta[["pval"]])
+[1] 1
+> if (sta[["pval"]]>0){
++   write.csv(sta[["pval"]],"p_value_statR.csv",row.names = FALSE)
++ }else{
++   write.csv(sta[["pval"]],"p_value_statR.csv",row.names = FALSE)
++ }
+>   
+> 
+> proc.time()
+   user  system elapsed 
+   0.40    0.09    0.48 
