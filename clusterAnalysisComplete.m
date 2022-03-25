@@ -87,8 +87,14 @@ PyStyle_=pyFormatC(FA_Results,pyColors);
 delete FA_input.csv
 filename = 'FA_input.csv';
 writetable(PyStyle_,filename);
-
-
+variable_Names=(test.Properties.VariableNames);
+variable_Names(1)=[];
+VFA_Model.A(:,1)';
+VFA_Model.A(:,2)';
+corrCoefVari=[convertCharsToStrings(variable_Names);VFA_Model.A(:,1)';VFA_Model.A(:,2)']
+delete FA_relationship.csv
+filename = 'FA_relationship.csv';
+writematrix(corrCoefVari,filename);
 %Python code here to figure this out
 
 %This part of the code is dependent on all libraries being correctly
