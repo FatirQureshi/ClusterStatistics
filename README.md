@@ -24,8 +24,12 @@ The Mahalanobis distance is a metric used to quantify the proximity between a po
 
 # Installation
 
-Please ensure that 
+In order to utilize this package, you must have the following dependencies:
+Python 3.7.3 or later (https://www.python.org/downloads/)
+R (Download the RStudio IDE - RStudio)
+MATLAB R2021a or later (https://itssc.rpi.edu/hc/en-us/articles/360016199671-MatLab-License-Renewal-and-Activation)
+
 
 # User Instructions
 
-Please ensure that 
+
