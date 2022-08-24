@@ -52,7 +52,7 @@ The user can then specify the number of factors to utilize for FA directly in th
 Statistics regarding  the VFA cluster properties will output into a xlsx file with the suffix “FA_Stats”.  This data will be generated using an R pipeline. Contained within this output is the Mahalanobis distance between clusters as well as the results of Hotelling’s t-squared statistic.
 
 
-Data visualization is performed in Python using the ellipseVariant.py script. It is crucial that the file path is correct:
+Data visualization is performed in Python using the plotMaker.py script. It is crucial that the file path is correct:
 
 
 df = pd.read_csv(' C:\\ ~path \\FA_input.csv’)
