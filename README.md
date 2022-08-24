@@ -32,6 +32,9 @@ R (https://www.rstudio.com/products/rstudio/download/))
 
 MATLAB R2021a or later (https://itssc.rpi.edu/hc/en-us/articles/360016199671-MatLab-License-Renewal-and-Activation)
 
+See the installation guide for step by step instructions:
+https://github.com/FatirQureshi/ClusterStatistics/blob/main/installationGuide
+
 
 # User Instructions
 
