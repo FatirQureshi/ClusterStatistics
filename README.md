@@ -38,4 +38,10 @@ https://github.com/FatirQureshi/ClusterStatistics/blob/main/installationGuide
 
 # User Instructions
 
+In order to interface with this package in MATLAB, open the clusterAnalysisComplete.m file
+Running this script, the user will be prompted to select a file for which to conduct analysis for data visualization and dimensionality reduction. The file must be in xlsx format and must have a column header with ‘Group’, followed by other columns with names corresponding to variables
+After selecting the file, the dataset will be checked for any cases of missing values. If missing data is present, the user will be asked as to whether or not they would like imputation to be performed. Subsequenetly, the data will be subjected to PCA and a Scree plot will be generated for the eigen values derived using eigen decomposition. The MATLAB terminal will prompt the following:
+How many factors : 
+The user can then specify the number of factors to utilize for FA directly in the command window. The Kaiser criterion can be used for determining this, although alternative approaches also exist.
+Statistics regarding  the VFA cluster properties will output into a xlsx file with the suffix “FA_Stats”.  This data will be generated using an R pipeline. 
 
