@@ -38,7 +38,8 @@ https://github.com/FatirQureshi/ClusterStatistics/blob/main/installationGuide
 
 # User Instructions
 
-In order to interface with this package in MATLAB, open the clusterAnalysisComplete.m file
+In order to interface with this package in MATLAB, open the clusterAnalysisComplete.m file.
+
 Running this script, the user will be prompted to select a file for which to conduct analysis for data visualization and dimensionality reduction. The file must be in xlsx format and must have a column header with ‘Group’, followed by other columns with names corresponding to variables.
 
 
